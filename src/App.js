@@ -11,12 +11,15 @@ function App() {
   const [email, setEmail] = useState('');
   const [resetSent, setResetSent] = useState(false);
 
+  // Use environment variable for backend API URL, fallback to localhost for local dev
+  const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage('');
     const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
     try {
-      const res = await fetch(`http://localhost:5000${endpoint}`,
+      const res = await fetch(`${apiUrl}${endpoint}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
